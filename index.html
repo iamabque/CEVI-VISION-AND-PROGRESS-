@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEVI Perfumes Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            scroll-snap-align: start;
+            padding: 60px 80px;
+            position: relative;
+        }
+
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(200,180,140,0.1) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+        }
+
+        .logo {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            color: #c8b48c;
+        }
+
+        /* Compensation Styles */
+        .compensation-slide {
+            background: #0a0a0a;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 120px;
+        }
+
+        .compensation-container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .compensation-model {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .comp-phase {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid #2a2a2a;
+            padding: 50px 40px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .comp-phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #c8b48c, #d4c4a0);
+        }
+
+        .comp-label {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .comp-title {
+            font-size: 28px;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .comp-amount {
+            font-size: 56px;
+            font-weight: 300;
+            color: #c8b48c;
+            margin: 20px 0;
+        }
+
+        .comp-period {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .comp-description {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+            padding-top: 20px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .comp-arrow {
+            font-size: 48px;
+            color: #c8b48c;
+        }
+
+        .comp-note {
+            background: rgba(200,180,140,0.1);
+            border: 1px solid rgba(200,180,140,0.3);
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .comp-note-text {
+            font-size: 15px;
+            color: #c8b48c;
+            line-height: 1.7;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #888;
+            margin-bottom: 60px;
+        }
+
+        .date {
+            font-size: 16px;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: #c8b48c;
+            margin: 30px 0;
+        }
+
+        /* Content Slides */
+        .content-slide {
+            background: #0a0a0a;
+            align-items: flex-start;
+            padding: 80px 120px;
+        }
+
+        .slide-header {
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        .slide-number {
+            font-size: 14px;
+            color: #c8b48c;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .slide-description {
+            font-size: 18px;
+            color: #888;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Grid Layout for Work Items */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .work-item {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid #2a2a2a;
+            padding: 35px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #c8b48c;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .work-item:hover {
+            border-color: #c8b48c;
+            transform: translateX(5px);
+        }
+
+        .work-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .work-item-number {
+            font-size: 14px;
+            color: #c8b48c;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .work-item-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .work-item-description {
+            font-size: 15px;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .work-item-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 6px 14px;
+            background: rgba(200,180,140,0.1);
+            border: 1px solid rgba(200,180,140,0.3);
+            border-radius: 20px;
+            color: #c8b48c;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation */
+        .nav-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #666;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-hint::after {
+            content: '↓';
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 40px;
+            right: 60px;
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 2px;
+            z-index: 1000;
+        }
+
+        /* Stats & Metrics Styles */
+        .stats-slide {
+            background: #0a0a0a;
+            align-items: flex-start;
+            padding: 80px 120px;
+        }
+
+        .metrics-container {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #c8b48c, #d4c4a0);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            font-size: 42px;
+            font-weight: 300;
+            color: #c8b48c;
+            margin-bottom: 8px;
+        }
+
+        .metric-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .growth-indicator {
+            display: inline-block;
+            font-size: 12px;
+            color: #4ade80;
+            margin-left: 8px;
+        }
+
+        /* Budget Breakdown */
+        .budget-section {
+            background: #0f0f0f;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .budget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .budget-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(200,180,140,0.05);
+            border-left: 3px solid #c8b48c;
+            border-radius: 4px;
+        }
+
+        .budget-item-info {
+            flex: 1;
+        }
+
+        .budget-item-name {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .budget-item-desc {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .budget-item-amount {
+            font-size: 28px;
+            font-weight: 300;
+            color: #c8b48c;
+        }
+
+        .budget-visual {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            margin-bottom: 25px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c8b48c, #d4c4a0);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Sales Projection Chart */
+        .chart-container {
+            background: #0f0f0f;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-top: 30px;
+            margin-bottom: 60px;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 320px;
+            border-bottom: 1px solid #2a2a2a;
+            border-left: 1px solid #2a2a2a;
+            padding: 20px 0;
+        }
+
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .bar {
+            width: 80px;
+            background: linear-gradient(180deg, #c8b48c, #b8a47c);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.5s ease;
+            max-height: 250px;
+        }
+
+        .bar.projected {
+            background: linear-gradient(180deg, rgba(200,180,140,0.4), rgba(184,164,124,0.4));
+            border: 2px dashed #c8b48c;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: 500;
+            color: #c8b48c;
+            white-space: nowrap;
+        }
+
+        .bar-label {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        .bar-sublabel {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* ROI Metrics */
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .roi-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid #2a2a2a;
+            padding: 35px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .roi-title {
+            font-size: 14px;
+            color: #888;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .roi-value {
+            font-size: 48px;
+            font-weight: 300;
+            color: #c8b48c;
+            margin-bottom: 10px;
+        }
+
+        .roi-description {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        .projection-note {
+            background: rgba(200,180,140,0.1);
+            border-left: 3px solid #c8b48c;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+
+        .projection-note-title {
+            font-size: 14px;
+            color: #c8b48c;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .projection-note-text {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        /* Future Vision Styles */
+        .vision-slide {
+            background: #0a0a0a;
+            align-items: flex-start;
+            padding: 80px 120px;
+        }
+
+        .timeline-container {
+            width: 100%;
+            max-width: 1400px;
+            margin-top: 40px;
+        }
+
+        .timeline-header {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .phase-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid #2a2a2a;
+            padding: 40px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #c8b48c, #d4c4a0);
+        }
+
+        .phase-number {
+            font-size: 14px;
+            color: #c8b48c;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .phase-title {
+            font-size: 28px;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .phase-timeline {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .phase-metric {
+            font-size: 36px;
+            font-weight: 300;
+            color: #c8b48c;
+            margin-bottom: 8px;
+        }
+
+        .phase-metric-label {
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* Strategic Pillars */
+        .pillars-section {
+            margin-bottom: 60px;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .pillar-card {
+            background: #0f0f0f;
+            border: 1px solid #2a2a2a;
+            padding: 40px;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            border-color: #c8b48c;
+            transform: translateY(-5px);
+        }
+
+        .pillar-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(200,180,140,0.1);
+            border: 1px solid rgba(200,180,140,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .pillar-title {
+            font-size: 22px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .pillar-description {
+            font-size: 15px;
+            color: #999;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .pillar-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pillar-points li {
+            font-size: 14px;
+            color: #888;
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .pillar-points li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #c8b48c;
+        }
+
+        /* Vision Statement */
+        .vision-statement {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border: 1px solid #c8b48c;
+            padding: 50px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision-statement::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(200,180,140,0.05) 0%, transparent 70%);
+        }
+
+        .vision-quote {
+            font-size: 32px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        .vision-author {
+            font-size: 14px;
+            color: #c8b48c;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Roadmap */
+        .roadmap-container {
+            margin-top: 50px;
+        }
+
+        .roadmap-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 60px;
+            bottom: -40px;
+            width: 1px;
+            background: linear-gradient(180deg, #c8b48c, transparent);
+        }
+
+        .roadmap-item:last-child::before {
+            display: none;
+        }
+
+        .roadmap-marker {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #c8b48c, #b8a47c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a0a0a;
+            flex-shrink: 0;
+        }
+
+        .roadmap-content {
+            flex: 1;
+            background: #0f0f0f;
+            border: 1px solid #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .roadmap-phase {
+            font-size: 14px;
+            color: #c8b48c;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .roadmap-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .roadmap-description {
+            font-size: 15px;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .roadmap-highlights {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .roadmap-highlight {
+            background: rgba(200,180,140,0.1);
+            border: 1px solid rgba(200,180,140,0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #c8b48c;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-slide {
+                padding: 60px 40px;
+            }
+
+            .slide-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter">01 / 05</div>
+    
+    <div class="slide-container">
+        <!-- SLIDE 1: Title -->
+        <div class="slide title-slide">
+            <div class="logo">CEVI</div>
+            <div class="divider"></div>
+            <div class="subtitle">PROGRESS & VISION</div>
+            <div class="date">MARCH 2026 UPDATE</div>
+        </div>
+
+        <!-- SLIDE 2: Current Work -->
+        <div class="slide content-slide">
+            <div class="slide-header">
+                <div class="slide-number">01 — CURRENT INITIATIVES</div>
+                <div class="slide-title">Active Projects</div>
+                <div class="slide-description">
+                    Strategic initiatives currently in execution to build brand presence, optimize performance, and drive growth across all channels.
+                </div>
+            </div>
+
+            <div class="work-grid">
+                <div class="work-item">
+                    <div class="work-item-number">01</div>
+                    <div class="work-item-title">Influencer Outreach & Partnerships</div>
+                    <div class="work-item-description">
+                        Building strategic relationships with fragrance creators across TikTok, Instagram, and YouTube. Focus on long-term partnerships with authentic content creators.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">OUTREACH</span>
+                        <span class="tag">PARTNERSHIPS</span>
+                        <span class="tag">CONTENT</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">02</div>
+                    <div class="work-item-title">TikTok Ads Optimization</div>
+                    <div class="work-item-description">
+                        Continuous A/B testing of ad creatives, headlines, and targeting. Optimizing for conversion with creator-generated content and product showcases.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">PAID MEDIA</span>
+                        <span class="tag">TESTING</span>
+                        <span class="tag">OPTIMIZATION</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">03</div>
+                    <div class="work-item-title">Amazon Store Management</div>
+                    <div class="work-item-description">
+                        Full catalog management, inventory optimization, A+ content development, and review generation strategy for US marketplace expansion.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">MARKETPLACE</span>
+                        <span class="tag">E-COMMERCE</span>
+                        <span class="tag">SEO</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">04</div>
+                    <div class="work-item-title">eBay Management & SEO</div>
+                    <div class="work-item-description">
+                        Strategic listing optimization, keyword research, competitive pricing strategy, and search ranking improvement across eBay platform.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">MARKETPLACE</span>
+                        <span class="tag">SEO</span>
+                        <span class="tag">OPTIMIZATION</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">05</div>
+                    <div class="work-item-title">Meta Ads & Optimization</div>
+                    <div class="work-item-description">
+                        Facebook and Instagram ad campaigns with focus on retargeting, lookalike audiences, and conversion optimization. Testing product-specific and collection-wide campaigns.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">PAID MEDIA</span>
+                        <span class="tag">RETARGETING</span>
+                        <span class="tag">CONVERSION</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">06</div>
+                    <div class="work-item-title">Social Media Content</div>
+                    <div class="work-item-description">
+                        Daily content creation and posting across TikTok, Instagram, and Facebook. Product showcases, lifestyle content, educational fragrance content, and community engagement.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">ORGANIC</span>
+                        <span class="tag">CONTENT</span>
+                        <span class="tag">COMMUNITY</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">07</div>
+                    <div class="work-item-title">Listing Optimization</div>
+                    <div class="work-item-description">
+                        Cross-platform listing enhancement with AI-generated product imagery, professional copywriting, SEO keyword integration, and conversion-focused design.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">AI IMAGING</span>
+                        <span class="tag">COPYWRITING</span>
+                        <span class="tag">CONVERSION</span>
+                    </div>
+                </div>
+
+                <div class="work-item">
+                    <div class="work-item-number">08</div>
+                    <div class="work-item-title">Brand Asset Development</div>
+                    <div class="work-item-description">
+                        Creating high-quality visual assets, product photography enhancement, lifestyle imagery, and branded content templates for consistent brand identity.
+                    </div>
+                    <div class="work-item-tags">
+                        <span class="tag">CREATIVE</span>
+                        <span class="tag">BRANDING</span>
+                        <span class="tag">DESIGN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Stats & Performance -->
+        <div class="slide stats-slide">
+            <div class="slide-header">
+                <div class="slide-number">02 — PERFORMANCE METRICS</div>
+                <div class="slide-title">Growth & Projections</div>
+                <div class="slide-description">
+                    First 40 days performance analysis and strategic investment breakdown showing exponential growth trajectory.
+                </div>
+            </div>
+
+            <div class="metrics-container">
+                <!-- Key Metrics Overview -->
+                <div class="key-metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">Month 1 Revenue</div>
+                        <div class="metric-value">$500</div>
+                        <div class="metric-subtitle">Foundation Phase</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Current Revenue</div>
+                        <div class="metric-value">$600</div>
+                        <div class="metric-subtitle">First 10 Days Only <span class="growth-indicator">↑ 20%</span></div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Month 2 Projection</div>
+                        <div class="metric-value">$2.5K</div>
+                        <div class="metric-subtitle">Conservative Estimate</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Growth Rate</div>
+                        <div class="metric-value">400%</div>
+                        <div class="metric-subtitle">Month-over-Month <span class="growth-indicator">↑</span></div>
+                    </div>
+                </div>
+
+                <!-- Investment Overview -->
+                <div class="budget-section">
+                    <div class="section-title">Strategic Investment Overview</div>
+                    <div class="roi-grid">
+                        <div class="roi-card">
+                            <div class="roi-title">Month 1 Investment</div>
+                            <div class="roi-value">$325</div>
+                            <div class="roi-description">
+                                Foundation building phase<br>
+                                Brand awareness & credibility
+                            </div>
+                        </div>
+
+                        <div class="roi-card">
+                            <div class="roi-title">Month 2 Investment</div>
+                            <div class="roi-value">$300</div>
+                            <div class="roi-description">
+                                Conversion optimization phase<br>
+                                Reduced spend, higher efficiency
+                            </div>
+                        </div>
+
+                        <div class="roi-card">
+                            <div class="roi-title">Cost Reduction</div>
+                            <div class="roi-value">-8%</div>
+                            <div class="roi-description">
+                                Lower ad spend required<br>
+                                <span class="highlight">Organic momentum building</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="projection-note">
+                        <div class="projection-note-title">WHY THIS INVESTMENT WAS CRITICAL</div>
+                        <div class="projection-note-text">
+                            Month 1's higher ad spend ($325) was essential for building foundational brand credibility, establishing social proof, and creating algorithmic momentum. This investment in awareness created the infrastructure for Month 2's conversion efficiency—allowing us to reduce spend to $300 while projecting 5x revenue increase.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Projection Chart -->
+                <div class="chart-container">
+                    <div class="section-title">Revenue Trajectory & Projections</div>
+                    <div class="chart-wrapper">
+                        <div class="chart-bars">
+                            <div class="bar-group">
+                                <div class="bar" style="height: 80px">
+                                    <div class="bar-value">$500</div>
+                                </div>
+                                <div class="bar-label">
+                                    Month 1
+                                    <div class="bar-sublabel">Foundation</div>
+                                </div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar" style="height: 96px">
+                                    <div class="bar-value">$600</div>
+                                </div>
+                                <div class="bar-label">
+                                    Days 1-10
+                                    <div class="bar-sublabel">Current</div>
+                                </div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar projected" style="height: 160px">
+                                    <div class="bar-value">$2,000</div>
+                                </div>
+                                <div class="bar-label">
+                                    Month 2 Low
+                                    <div class="bar-sublabel">Conservative</div>
+                                </div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar projected" style="height: 200px">
+                                    <div class="bar-value">$2,500</div>
+                                </div>
+                                <div class="bar-label">
+                                    Month 2 Target
+                                    <div class="bar-sublabel">Realistic</div>
+                                </div>
+                            </div>
+
+                            <div class="bar-group">
+                                <div class="bar projected" style="height: 240px">
+                                    <div class="bar-value">$3,000</div>
+                                </div>
+                                <div class="bar-label">
+                                    Month 2 High
+                                    <div class="bar-sublabel">Optimistic</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="projection-note">
+                        <div class="projection-note-title">MOMENTUM INDICATORS</div>
+                        <div class="projection-note-text">
+                            Current pace: $60/day average (first 10 days). If maintained: $1,800 monthly. With weekend surge, promotional campaigns, and influencer content scheduled for weeks 2-4, conservative $2,000-$2,500 projection is highly achievable. Optimal scenario with strong conversion: $3,000.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROI Metrics -->
+                <div class="budget-section">
+                    <div class="section-title">Return on Investment Analysis</div>
+                    <div class="roi-grid">
+                        <div class="roi-card">
+                            <div class="roi-title">Month 1 ROI</div>
+                            <div class="roi-value">154%</div>
+                            <div class="roi-description">
+                                $325 spend → $500 revenue<br>
+                                Foundation building phase
+                            </div>
+                        </div>
+
+                        <div class="roi-card">
+                            <div class="roi-title">Month 2 Projected ROI</div>
+                            <div class="roi-value">733%</div>
+                            <div class="roi-description">
+                                $300 spend → $2,500 revenue<br>
+                                Conversion optimization phase
+                            </div>
+                        </div>
+
+                        <div class="roi-card">
+                            <div class="roi-title">Ad Efficiency Gain</div>
+                            <div class="roi-value">+376%</div>
+                            <div class="roi-description">
+                                Lower spend, higher returns<br>
+                                <span class="highlight">Compounding growth</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Future Vision -->
+        <div class="slide vision-slide">
+            <div class="slide-header">
+                <div class="slide-number">03 — FUTURE VISION</div>
+                <div class="slide-title">The Path Forward</div>
+                <div class="slide-description">
+                    Strategic roadmap to establish CEVI as a dominant player in the US fragrance market through multi-channel expansion and strategic partnerships.
+                </div>
+            </div>
+
+            <div class="timeline-container">
+                <!-- Phase Overview -->
+                <div class="timeline-header">
+                    <div class="phase-card">
+                        <div class="phase-number">PHASE 01</div>
+                        <div class="phase-title">Foundation</div>
+                        <div class="phase-timeline">Months 1-3</div>
+                        <div class="phase-metric">3-5K</div>
+                        <div class="phase-metric-label">Monthly Revenue Target</div>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-number">PHASE 02</div>
+                        <div class="phase-title">Expansion</div>
+                        <div class="phase-timeline">Months 4-6</div>
+                        <div class="phase-metric">15-25K</div>
+                        <div class="phase-metric-label">Monthly Revenue Target</div>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-number">PHASE 03</div>
+                        <div class="phase-title">Scale</div>
+                        <div class="phase-timeline">Months 7-12</div>
+                        <div class="phase-metric">50K+</div>
+                        <div class="phase-metric-label">Monthly Revenue Target</div>
+                    </div>
+                </div>
+
+                <!-- Strategic Pillars -->
+                <div class="pillars-section">
+                    <div class="section-title">Strategic Growth Pillars</div>
+                    <div class="pillars-grid">
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🛒</div>
+                            <div class="pillar-title">Amazon Dominance</div>
+                            <div class="pillar-description">
+                                Amazon represents the single biggest opportunity. Established fragrance brands on Amazon average 1,000+ orders monthly. Our focus: aggressive SEO, competitive pricing, A+ content, and review generation.
+                            </div>
+                            <ul class="pillar-points">
+                                <li>Complete catalog optimization with enhanced imagery</li>
+                                <li>Strategic keyword targeting & SEO implementation</li>
+                                <li>Competitive pricing strategy against established brands</li>
+                                <li>Amazon Ads campaigns (Sponsored Products & Brands)</li>
+                                <li>Review generation & reputation management</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card">
+                            <div class="pillar-icon">📈</div>
+                            <div class="pillar-title">Multi-Channel Expansion</div>
+                            <div class="pillar-description">
+                                Diversify revenue streams across major e-commerce platforms to reduce dependency and maximize market penetration across all consumer touchpoints.
+                            </div>
+                            <ul class="pillar-points">
+                                <li>Scale TikTok Shop & organic TikTok presence</li>
+                                <li>Optimize eBay listings for search visibility</li>
+                                <li>Launch Walmart Marketplace presence</li>
+                                <li>Explore Etsy for niche fragrance enthusiasts</li>
+                                <li>Direct website conversion optimization</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🤝</div>
+                            <div class="pillar-title">Influencer & Affiliate Network</div>
+                            <div class="pillar-description">
+                                Build a scalable creator ecosystem that generates authentic content, drives awareness, and converts audiences into customers through strategic partnerships.
+                            </div>
+                            <ul class="pillar-points">
+                                <li>Onboard 20-30 micro-influencers (10K-100K followers)</li>
+                                <li>Establish 5-10 macro partnerships (100K+ followers)</li>
+                                <li>Launch affiliate program with competitive commissions</li>
+                                <li>Create creator toolkit with assets & talking points</li>
+                                <li>Leverage UGC for ads & social proof</li>
+                            </ul>
+                        </div>
+
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🏪</div>
+                            <div class="pillar-title">Wholesale & B2B Strategy</div>
+                            <div class="pillar-description">
+                                Leverage existing wholesale client relationships to distribute CEVI through established retailers, creating passive revenue streams and physical presence.
+                            </div>
+                            <ul class="pillar-points">
+                                <li>Present CEVI to current wholesale partners</li>
+                                <li>Develop retail-ready packaging & display materials</li>
+                                <li>Create wholesale pricing structure & terms</li>
+                                <li>Target boutique perfume shops & specialty stores</li>
+                                <li>Build credibility through market sales & reviews</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Roadmap -->
+                <div class="roadmap-container">
+                    <div class="section-title">90-Day Execution Roadmap</div>
+                    
+                    <div class="roadmap-item">
+                        <div class="roadmap-marker">1</div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-phase">MONTH 2-3 — IMMEDIATE</div>
+                            <div class="roadmap-title">Amazon Launch & Optimization</div>
+                            <div class="roadmap-description">
+                                Complete Amazon brand registry approval, upload full catalog with A+ content, implement SEO strategy, launch Sponsored Product campaigns, and initiate review generation program. Target: 50-100 orders in first 30 days.
+                            </div>
+                            <div class="roadmap-highlights">
+                                <span class="roadmap-highlight">Brand Registry</span>
+                                <span class="roadmap-highlight">A+ Content</span>
+                                <span class="roadmap-highlight">PPC Campaigns</span>
+                                <span class="roadmap-highlight">Review Strategy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-marker">2</div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-phase">MONTH 3-4 — NEAR-TERM</div>
+                            <div class="roadmap-title">Walmart Marketplace & Influencer Scale</div>
+                            <div class="roadmap-description">
+                                Activate Walmart seller account, optimize listings for Walmart's algorithm, onboard 15-20 TikTok/Instagram creators with dedicated campaigns, and establish affiliate commission structure. Target: 3-5 viral content pieces.
+                            </div>
+                            <div class="roadmap-highlights">
+                                <span class="roadmap-highlight">Walmart Launch</span>
+                                <span class="roadmap-highlight">20+ Creators</span>
+                                <span class="roadmap-highlight">Affiliate Program</span>
+                                <span class="roadmap-highlight">Viral Content</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-marker">3</div>
+                        <div class="roadmap-content">
+                            <div class="roadmap-phase">MONTH 5-6 — MID-TERM</div>
+                            <div class="roadmap-title">Wholesale Partnerships & Market Establishment</div>
+                            <div class="roadmap-description">
+                                Pitch CEVI to existing wholesale network with proven sales data from Amazon/online channels. Secure 5-10 boutique retail partnerships. Scale Amazon to 500+ monthly orders. Establish CEVI as recognized player in affordable luxury fragrance space.
+                            </div>
+                            <div class="roadmap-highlights">
+                                <span class="roadmap-highlight">Wholesale Activated</span>
+                                <span class="roadmap-highlight">Retail Presence</span>
+                                <span class="roadmap-highlight">500+ Amazon Orders</span>
+                                <span class="roadmap-highlight">Brand Recognition</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Statement -->
+                <div class="vision-statement">
+                    <div class="vision-quote">
+                        "With strategic distribution, influencer-led awareness, and proven market validation, CEVI will establish itself as a dominant force in the accessible luxury fragrance category within 12 months."
+                    </div>
+                    <div class="vision-author">THE CEVI VISION</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Compensation Structure -->
+        <div class="slide compensation-slide">
+            <div class="slide-header" style="text-align: center; width: 100%;">
+                <div class="slide-number">04 — PARTNERSHIP STRUCTURE</div>
+                <div class="slide-title">Compensation Model</div>
+                <div class="slide-description">
+                    A performance-aligned partnership structure designed to align growth incentives.
+                </div>
+            </div>
+
+            <div class="compensation-container">
+                <div class="compensation-model">
+                    <!-- Phase 1 -->
+                    <div class="comp-phase">
+                        <div class="comp-label">Phase 1</div>
+                        <div class="comp-title">Foundation</div>
+                        <div class="comp-amount">$2,000</div>
+                        <div class="comp-period">Months 1-2</div>
+                        <div class="comp-description">
+                            Fixed monthly retainer to establish infrastructure, build brand presence, and optimize all channels.
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="comp-arrow">→</div>
+
+                    <!-- Phase 2 -->
+                    <div class="comp-phase">
+                        <div class="comp-label">Phase 2</div>
+                        <div class="comp-title">Growth</div>
+                        <div class="comp-amount">%</div>
+                        <div class="comp-period">Month 3 Onwards</div>
+                        <div class="comp-description">
+                            Performance-based commission on total revenue. Growth-aligned partnership where success is shared.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comp-note">
+                    <div class="comp-note-text">
+                        This structure ensures focused foundation-building in months 1-2, followed by a scalable partnership model where both parties benefit directly from revenue growth.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-hint">SCROLL TO CONTINUE</div>
+
+    <script>
+        // Update slide counter on scroll
+        const slideContainer = document.querySelector('.slide-container');
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.querySelector('.slide-counter');
+        
+        slideContainer.addEventListener('scroll', () => {
+            const scrollPosition = slideContainer.scrollTop;
+            const slideHeight = window.innerHeight;
+            const currentSlide = Math.round(scrollPosition / slideHeight) + 1;
+            counter.textContent = `${String(currentSlide).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        });
+    </script>
+</body>
+</html>
